@@ -117,6 +117,10 @@ df = pd.DataFrame({'time': time, 'Hs': waveHs, 'Tp': waveTp, 'Dm': waveDm}, colu
 savepath = os.path.join(outputdir,"full_WIS_time_series_UTC.csv")
 df.to_csv(savepath)
 
+### Need to check for possible duplicates in time; time might be the same (1/3/1980 5:00) but Hs values are different; set second
+# time to next time step (1/3/1980 6:00 in this example)
+# only happened at 6:00 4 times throughout entire time series??
+
 
 
 
