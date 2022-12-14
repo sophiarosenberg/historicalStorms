@@ -16,11 +16,11 @@ import datetime
 
 ### load file with storm numbers and times, and file with full wave dataset
 # storm file
-storm_file = r"C:\Users\smrosen2\Desktop\Mirlo Beach\Hypothetical Storms\Dylan method\3. Merge tides and waves - Updated\merge storm waves and tides\storm_waves_tides_1980_2020_left_merge.csv"
+storm_file = r"C:\Users\smrosen2\Desktop\Mirlo Beach\Hypothetical Storms\Dylan method\3. Merge tides and waves\merge storm waves and tides\storm_waves_tides_1980_2020_left_merge.csv"
 storm_df = pd.read_csv(storm_file)
 
 # load full merged wave and tide file
-full_df = pd.read_csv(r"C:\Users\smrosen2\Desktop\Mirlo Beach\Hypothetical Storms\Dylan method\3. Merge tides and waves - Updated\merge full waves and tides\full_waves_tides_1980_2020.csv")
+full_df = pd.read_csv(r"C:\Users\smrosen2\Desktop\Mirlo Beach\Hypothetical Storms\Dylan method\3. Merge tides and waves\merge full waves and tides\full_waves_tides_1980_2020.csv")
 
 # Convert date string to datetime object
 full_df["time"] = pd.to_datetime(full_df["time"])
@@ -64,11 +64,14 @@ new_df['time'] = [pd.date_range(s, e, freq='h') for s, e in
 new_df = new_df.explode('time').drop(['start_time', 'end_time'], axis=1)
 
 
-# merge by time to full waves and tides csv (all hours from 1980-end of 2019)
+# merge by time to full waves and tides csv (all hours from 1980-end of 2020)
 final_df = pd.merge(new_df, full_df, on='time', how='left')
 
 # sort by time in ascending order
 final_df.sort_values(by = ['time'], inplace = False)
+
+# add in storm surge
+final_df["Surge"] = final_df[" Water Level"] - final_df[" Prediction"]
 
 # create a df with storm number and duration
 new_df = final_df.groupby(['storm']).size().reset_index(name = 'duration(hrs)')
