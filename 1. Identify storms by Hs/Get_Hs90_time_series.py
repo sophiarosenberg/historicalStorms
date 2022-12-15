@@ -39,12 +39,12 @@ df2.to_csv(savepath)
 # Save csv as an excel spreadsheet and group storms within 1 day:
 # 1) Create a new column named “storm”
 # 2) In first row entry, put a 1
-# 3) In next row entry, type this IF statement: =IF((C3-C2)<1,D2,D2+1)
+# 3) In next row entry, type this IF statement: =IF((C3-C2)<0.05,D2,D2+1)
 #       C1 = time
 #       D1 = storm header
 #       Apply to rest of column
 # This IF statement gives a consecutive storm number to each storm in dataset based on hourly time intervals breaking in between separate storm events
-# if two rows are more than a day apart, they are separated into separate storms
+# if two rows are more than an hour apart, they are separated into separate storms - will combine continuous 12 hr periods that occur within 24 hours of eachother later
 
 ### After doing the above steps, run "Get_storms_12hrs.py"
 
