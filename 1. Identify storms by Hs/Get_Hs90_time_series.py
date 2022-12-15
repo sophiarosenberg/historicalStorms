@@ -43,8 +43,9 @@ df2.to_csv(savepath)
 #       C1 = time
 #       D1 = storm header
 #       Apply to rest of column
-# This IF statement gives a consecutive storm number to each storm in dataset based on hourly time intervals breaking in between separate storm events
-# if two rows are more than an hour apart, they are separated into separate storms - will combine continuous 12 hr periods that occur within 24 hours of eachother later
+# This IF statement gives a consecutive storm number to each storm in dataset based on hourly time intervals breaking when times are more than an hour apart
+# Next step excludes periods < 12 hours in duration
+# Will combine continuous 12 hr periods that occur within 24 hours of eachother in later step
 
 ### After doing the above steps, run "Get_storms_12hrs.py"
 
